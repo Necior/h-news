@@ -22,7 +22,8 @@ def get_story(story_id):
 def print_top(num=8):
     stories = get_topstories()[:num]
     for story in stories:
-        print(get_story(story)['title'])
+        s = get_story(story)
+        print('{} ({})'.format(s['title'], s['score']))
 
 
 if __name__ == '__main__':
