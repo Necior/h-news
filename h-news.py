@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import random
 import requests
 
 
@@ -26,5 +27,15 @@ def print_top(num=8):
         print('{} ({})'.format(s['title'], s['score']))
 
 
+def print_random():
+    stories = get_topstories()
+    story = random.choice(stories)
+    s = get_story(story)
+    print('{} ({})'.format(s['title'], s['score']))
+
+
 if __name__ == '__main__':
+    print('--- Random story ---')
+    print_random()
+    print('--- Top 8 stories ---')
     print_top()
