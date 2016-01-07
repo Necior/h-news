@@ -2,6 +2,7 @@
 
 import random
 import requests
+import threading
 
 
 def get_topstories():
@@ -20,18 +21,24 @@ def get_story(story_id):
     raise Exception('''Problem getting story details.''')
 
 
+def print_story(story_id):
+    s = get_story(story_id)
+    print('{} ({})'.format(s['title'], s['score']))
+
+
 def print_top(num=8):
     stories = get_topstories()[:num]
-    for story in stories:
-        s = get_story(story)
-        print('{} ({})'.format(s['title'], s['score']))
+    threads = [threading.Thread(target=print_story, args=(s,))
+               for s in stories]
+
+    for t in threads:
+        t.start()
 
 
 def print_random():
     stories = get_topstories()
     story = random.choice(stories)
-    s = get_story(story)
-    print('{} ({})'.format(s['title'], s['score']))
+    print_story(story)
 
 
 if __name__ == '__main__':
