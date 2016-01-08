@@ -10,7 +10,7 @@ def get_topstories():
     topstories = requests.get(url)
     if topstories.ok:
         return topstories.json()
-    raise Exception('''Problem getting top stories.''')
+    raise ConnectionError('''Problem getting top stories.''')
 
 
 def get_story(story_id):
@@ -18,7 +18,7 @@ def get_story(story_id):
     story = requests.get(url)
     if story.ok:
         return story.json()
-    raise Exception('''Problem getting story details.''')
+    raise ConnectionError('''Problem getting story details.''')
 
 
 def print_story(story_id):
