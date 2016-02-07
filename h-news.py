@@ -26,8 +26,11 @@ def print_story(story_id):
     print('{} ({})'.format(s['title'], s['score']))
 
 
-def print_top(num=8):
-    stories = get_topstories()[:num]
+def print_top(num=None):
+    if num is None:
+        stories = get_topstories()
+    else:
+        stories = get_topstories()[:num]
     threads = [threading.Thread(target=print_story, args=(s,))
                for s in stories]
 
@@ -45,4 +48,4 @@ if __name__ == '__main__':
     print('--- Random story ---')
     print_random()
     print('--- Top 8 stories ---')
-    print_top()
+    print_top(8)
