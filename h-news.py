@@ -44,8 +44,24 @@ def print_random():
     print_story(story)
 
 
+def print_url_if_pdf(story_id):
+    s = get_story(story_id)
+    if s['title'].lower().find('pdf') != -1:
+        print('{} ({}) - {}'.format(s['title'], s['score'], s['url']))
+
+
+def print_pdfs_with_urls():
+    stories = get_topstories()
+    threads = [threading.Thread(target=print_url_if_pdf, args=(s,))
+               for s in stories]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+
 if __name__ == '__main__':
     print('--- Random story ---')
     print_random()
     print('--- Top 8 stories ---')
-    print_top(8)
+    print_pdfs_with_urls()
