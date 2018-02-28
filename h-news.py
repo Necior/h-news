@@ -64,4 +64,4 @@ if __name__ == '__main__':
     print('--- Random story ---')
     print_random()
     print('--- Top 8 stories ---')
-    print_pdfs_with_urls()
+    print_top(8)
